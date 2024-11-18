@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversor de Divisas</title>
+    <script src="calculadoraDinero.js"></script>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+    <div id="contenedor">
+        <h1>.:Conversor de Divisas:.</h1>
+        <br>
+        <hr>
+        <br>
+        <form>
+            <label for="cantidad">Cantidad:
+                <input class="caja1" type="number" id="cantidad" name="cantidad" required autofocus>
+            </label>
+            <br>
+            <label for="conversion">Tipo de Conversión:
+                <select id="conversion">
+                    <option value="mxnToUsd" selected>Peso a Dólar</option>
+                    <option value="usdToMxn">Dólar a Peso </option>
+                    <option value="eurToUsd">Euro a Dólar</option>
+                    <option value="usdToEur">Dólar a Euro</option>
+                    <option value="eurToMxn">Euro a Peso </option>
+                    <option value="mxnToEur">Peso a Euro</option>
+                </select>
+            </label>
+            <br>
+            <input id="boton" type="button" value="Convertir" onclick="convertir()" id="bton-convertir">
+            <hr>
+        </form>
+        <div id="resultado"></div>
+    </div>
+</body>
+</html>
