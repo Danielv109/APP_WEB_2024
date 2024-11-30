@@ -1,40 +1,79 @@
-from django.shortcuts import render
-
+from django.shortcuts import render,HttpResponse,redirect
+# from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from mainapp.forms import RegisterForm
 
 # Create your views here.
-
 def index(request):
-    return render(request, 'mainapp/index.html', {
+    return render(request, 'mainapp/index.html',{
         'title': 'Inicio',
-        'content': '.::!Bienvenido a la Pagina Principal!::.',
+        'content': 'Bienvenido a la pagina principal',
     })
-
+@login_required(login_url='inicio')
 def about(request):
-    return render(request, 'mainapp/about.html', {
-        'title': 'Acerca de Nosotros',
+    return render(request, 'mainapp/about.html',{
+        'title': 'Sobre nosotros',
         'content': 'Somos un equipo de Desarrollo de SW',
     })
 
+@login_required(login_url='inicio')
 def mision(request):
-    return render(request, 'mainapp/mision.html', {
+    return render(request, 'mainapp/mision.html',{
         'title': 'Nuestra Mision',
-        'content': 'Nuestra Mision es ser el mejor equipo de Desarrollo de SW en el mundo',
+        'content': 'Nuestra mision es tener profesionistas de primera calidad',
     })
 
+@login_required(login_url='inicio')
 def vision(request):
-    return render(request, 'mainapp/vision.html', {
-        'title': 'Nuestra Vision',
-        'content': 'Nuestra Vision es ser el mejor equipo de Desarrollo de SW  en el mundo',
+    return render(request, 'mainapp/vision.html',{
+        'title': 'Nuetsra Vision',
+        'content': 'Nuestra vision es ver por un futuro con mejores profesionisras',
     })
 
-def handler400(request, exception):
-    return render(request, 'mainapp/400.html', status=400)
+def page404(request, exception):
+    return render(request, 'mainapp/404.html')
 
-def handler403(request, exception):
-    return render(request, 'mainapp/403.html', status=403)
+def registro(request):
+    if request.user.is_authenticated:
+        return redirect('inicio')
+    else:
+        register_form = RegisterForm()
+        if request.method == "POST":
+            register_form = RegisterForm(request.POST)
+            if register_form.is_valid():
+                register_form.save()
+                messages.success(request, "Registro completado con éxito.")
+                return redirect('inicio')
+        return render(request, 'users/registro.html', {
+            'title': 'Registro de Usuarios',
+            'register_form': register_form
+        })
 
-def handler404(request, exception):
-    return render(request, 'mainapp/404.html', status=404)
+def login_user(request):
+    if request.user.is_authenticated:
+        return redirect('inicio')
+    else:
+        if request.method == "POST":
+            username=request.POST.get('username')
+            password=request.POST.get('password')
 
-def handler500(request):
-    return render(request, 'mainapp/500.html', status=500)
+            user=authenticate(request,username=username,password=password)
+
+            if user is not None:
+                login(request,user)
+                messages.success(request,"¡Bienvenido al Inicio de sesion!")
+                return redirect('inicio')
+            else:
+                messages.warning(request, "No es posible el acceso, utilice las credenciales correctas")
+                
+        return render(request, 'users/login.html',{
+            'title':'Login',
+            
+            
+        })
+    
+def logout_user(request):
+    logout(request)
+    return redirect('inicio')

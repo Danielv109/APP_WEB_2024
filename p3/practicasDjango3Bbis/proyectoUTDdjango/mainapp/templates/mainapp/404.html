@@ -1,22 +1,36 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página no encontrada</title>
+    <title>404 - Página no encontrada</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+        h1 {
+            font-size: 50px;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        a {
+            text-decoration: none;
+            color: #007BFF;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-    <script>
-        // Muestra una alerta emergente
-        alert('La ruta que intentaste acceder no se encontró. Serás redirigido a la página de inicio.');
-        
-        // Redirige a la página de inicio después de cerrar la alerta
-        setTimeout(function() {
-            window.location.href = "{% url 'inicio' %}";
-        }, 1000); // 1000 milisegundos = 1 segundo
-    </script>
-
-    <h1>Página no encontrada</h1>
-    <p>La página que estás buscando no existe. Serás redirigido en breve.</p>
+    <h1>404</h1>
+    <p>Lo sentimos, la página que buscas no se pudo encontrar.</p>
+    <p><a href="/">Regresar al inicio</a></p>
 </body>
 </html>

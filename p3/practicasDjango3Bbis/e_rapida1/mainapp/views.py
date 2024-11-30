@@ -25,3 +25,15 @@ def vision(request):
         'title': 'Nuestra Vision',
         'content': 'Nuestra Vision es poder tener los recursos para llegar a todas las personas en todo el mundo',
     })
+
+def logines(request):
+    return render(request, 'users/logines.html', {
+        'title': 'Inicio de Sesión',
+        'content': 'Hola que tal',
+    })
+
+def registros(request):
+    return render(request, 'users/registros.html', {
+        'title': 'Favor de Registrarse',
+        'content': 'Hola que tal',
+    })
